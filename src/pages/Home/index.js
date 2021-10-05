@@ -6,7 +6,7 @@ import MaterialIcon from "@material/react-material-icon";
 import logo from "../../assets/logo.svg";
 import restaurant from '../../assets/restaurant-mock.jpg';
 
-import { ImgCard } from '../../components';
+import { ImgCard, RestaurantCard } from '../../components';
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
@@ -50,6 +50,7 @@ export default function Home() {
                         
                     </Carousel>
                 </Search>
+                <RestaurantCard/>
             </Container>
             <Map />
         </Wrapper>
