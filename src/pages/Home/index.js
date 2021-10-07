@@ -6,10 +6,11 @@ import MaterialIcon from "@material/react-material-icon";
 import logo from "../../assets/logo.svg";
 import restaurant from '../../assets/restaurant-mock.jpg';
 
-import { ImgCard, RestaurantCard } from '../../components';
+import { ImgCard, Modal, RestaurantCard } from '../../components';
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
+    const [modalOpened, setModalOpened] = useState(false);
 
     const settings = {
         dots: false,
@@ -49,10 +50,12 @@ export default function Home() {
                         <ImgCard photo={restaurant} title="Nome do Restaurante"/>
                         
                     </Carousel>
+                    <button onClick={() => setModalOpened(true)}>Abrir Modal</button>
                 </Search>
                 <RestaurantCard/>
             </Container>
             <Map />
+            <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
         </Wrapper>
     );
 }
