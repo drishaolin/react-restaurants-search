@@ -3,17 +3,20 @@ import Portal from "./Portal";
 import { Dialog, Overlay } from "./Portal/styles";
 
 export default function Modal({ children, isOpen, onClose }) {
-    
     useEffect(() => {
+        if (!isOpen) return;
+
         function onEsc(e) {
-            if(e.keyCode === 27) onClose();
+            if (e.key === "Escape") {
+                onClose();
+            }
         }
         window.addEventListener('keydown', onEsc);
 
         return () => {
             window.removeEventListener('keydown', onEsc);
         }
-    }, [onClose]);
+    }, [isOpen, onClose]);
 
     if(!isOpen) return null;
 
