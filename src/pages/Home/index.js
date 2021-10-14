@@ -4,9 +4,8 @@ import TextField, { Input } from "@material/react-text-field";
 import MaterialIcon from "@material/react-material-icon";
 
 import logo from "../../assets/logo.svg";
-import restaurant from '../../assets/restaurant-mock.jpg';
 
-import { ImgCard, Map, Modal, RestaurantCard } from '../../components';
+import { ImageCard, Map, Modal, RestaurantCard } from '../../components';
 import { useSelector } from "react-redux";
 
 export default function Home() {
@@ -48,17 +47,7 @@ export default function Home() {
                     </TextField>
                     <CarouselTitle>Na sua Área</CarouselTitle>
                     <Carousel {...settings}>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        <ImgCard photo={restaurant} title="Nome do Restaurante"/>
-                        
+                    {restaurants.map((restaurant) => <ImageCard restaurant={restaurant}/>)}
                     </Carousel>
                 </Search>
                 {restaurants.map((restaurant) => <RestaurantCard restaurant={restaurant}/>)}
