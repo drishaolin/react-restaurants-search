@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Carousel, CarouselTitle, Container, Logo, Map, Search, Wrapper } from "./styles";
+import { Carousel, CarouselTitle, Container, Logo, Search, Wrapper } from "./styles";
 import TextField, { Input } from "@material/react-text-field";
 import MaterialIcon from "@material/react-material-icon";
 
 import logo from "../../assets/logo.svg";
 import restaurant from '../../assets/restaurant-mock.jpg';
 
-import { ImgCard, Modal, RestaurantCard } from '../../components';
+import { ImgCard, Map, Modal, RestaurantCard } from '../../components';
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
