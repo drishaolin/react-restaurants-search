@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GoogleApiWrapper, Map, Marker } from "google-maps-react";
 
 import { setRestaurants } from '../../redux/modules/restaurants';
 
-export const MapContainer =  (props) => {
+export const MapContainer = (props) => {
     const dispatch = useDispatch();
+    const { restaurants } = useSelector(state => state.restaurants);
     //necessário armazenar o estado do mapa para ter acesso ao place service nas buscas
     const [map, setMap] = useState(null);
     const { google, query } = props;
@@ -30,7 +31,7 @@ export const MapContainer =  (props) => {
                 console.log('restaurantes query', results);
                 dispatch(setRestaurants(results));
             }
-        })
+        });
     }
 
     function searchNearby(map, center) {
@@ -52,10 +53,22 @@ export const MapContainer =  (props) => {
     function onMapReady(_, map) {
         setMap(map);
         searchNearby(map, map.center);
-
     }
 
-    return(<Map google={google} centerAroundCurrentLocation onReady={onMapReady} onRecenter={onMapReady}></Map>);
+    return (
+        <Map google={google} centerAroundCurrentLocation onReady={onMapReady} onRecenter={onMapReady}>
+            {restaurants.map((restaurant) => (
+                <Marker
+                    key={restaurant.place_id}
+                    name={restaurant.name}
+                    position={{
+                        lat: restaurant.geometry.location.lat(),
+                        lng: restaurant.geometry.location.lng(),
+                    }}
+                />
+            ))}
+        </Map>
+    );
 };
 
 export default GoogleApiWrapper({
