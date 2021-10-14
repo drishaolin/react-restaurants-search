@@ -6,9 +6,29 @@ export const MapContainer =  (props) => {
     const [map, setMap] = useState(null);
     const { google } = props;
 
-    
 
-    return(<Map google={google} centerAroundCurrentLocation ></Map>);
+    function searchNearby(map, center) {
+        const service = new google.maps.places.PlacesService(map);
+
+        const request = {
+            location: center,
+            radius: '20000',
+            type: ['restaurant'],
+        };
+        service.nearbySearch(request, (results, status) => {
+            if(status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log('restaurantes', results);
+            }
+        })
+    }
+
+    function onMapReady(_, map) {
+        setMap(map);
+        searchNearby(map, map.center);
+
+    }
+
+    return(<Map google={google} centerAroundCurrentLocation onReady={onMapReady} onRecenter={onMapReady}></Map>);
 };
 
 export default GoogleApiWrapper({
