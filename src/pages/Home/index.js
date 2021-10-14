@@ -10,6 +10,7 @@ import { ImgCard, Map, Modal, RestaurantCard } from '../../components';
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
+    const [query, setQuery] = useState(null);
     const [modalOpened, setModalOpened] = useState(false);
 
     const settings = {
@@ -20,6 +21,12 @@ export default function Home() {
         slidesToScroll: 4,
         adaptiveHeight: true,
     };
+
+    function handleKeyPress(e) {
+        if(e.key === 'Enter') {
+            setQuery (inputValue);
+        }
+    }
 
     return (
         <Wrapper>
@@ -33,6 +40,7 @@ export default function Home() {
                     >
                         <Input
                             value={inputValue}
+                            onKeyPress={handleKeyPress}
                             onChange={(e) => setInputValue(e.currentTarget.value)}
                         />
                     </TextField>
@@ -50,11 +58,10 @@ export default function Home() {
                         <ImgCard photo={restaurant} title="Nome do Restaurante"/>
                         
                     </Carousel>
-                    <button onClick={() => setModalOpened(true)}>Abrir Modal</button>
                 </Search>
                 <RestaurantCard/>
             </Container>
-            <Map />
+            <Map query={query} />
             <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
         </Wrapper>
     );
