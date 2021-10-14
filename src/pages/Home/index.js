@@ -7,11 +7,13 @@ import logo from "../../assets/logo.svg";
 import restaurant from '../../assets/restaurant-mock.jpg';
 
 import { ImgCard, Map, Modal, RestaurantCard } from '../../components';
+import { useSelector } from "react-redux";
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
     const [query, setQuery] = useState(null);
     const [modalOpened, setModalOpened] = useState(false);
+    const { restaurants } = useSelector(state => state.restaurants);
 
     const settings = {
         dots: false,
@@ -59,7 +61,7 @@ export default function Home() {
                         
                     </Carousel>
                 </Search>
-                <RestaurantCard/>
+                {restaurants.map((restaurant) => <RestaurantCard restaurant={restaurant}/>)}
             </Container>
             <Map query={query} />
             <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)} />

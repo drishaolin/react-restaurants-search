@@ -1,16 +1,25 @@
 import { Adress, Restaurant, RestaurantInfo, RestaurantPhoto, Title } from "./styles";
 import ReactStars from "react-rating-stars-component";
-import restaurant from '../../assets/restaurant-mock.jpg'
+import restaurantMock from "../../assets/restaurant-mock.jpg";
 
-export default function RestaurantCard() {
+export default function RestaurantCard({ restaurant }) {
     return (
         <Restaurant>
             <RestaurantInfo>
-                <Title>Nome do restaurante</Title>
-                <ReactStars count={5} isHalf value={4} edit={false} activeColor="#e7711c" />
-                <Adress>Av Paulista, 2500</Adress>
+                <Title>{restaurant.name}</Title>
+                <ReactStars
+                    count={5}
+                    isHalf
+                    value={restaurant.rating}
+                    edit={false}
+                    activeColor="#e7711c"
+                />
+                <Adress>{restaurant.vicinity || restaurant.formatted_address}</Adress>
             </RestaurantInfo>
-            <RestaurantPhoto src={ restaurant } alt="Imagem do Restaurante" />
+            <RestaurantPhoto
+                src={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantMock}
+                alt="Imagem do Restaurante"
+            />
         </Restaurant>
     );
 }
