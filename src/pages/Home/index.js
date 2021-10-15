@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Carousel, CarouselTitle, Container, Logo, Search, Wrapper } from "./styles";
+import { Carousel, CarouselTitle, Container, Logo, Search, Wrapper, ModalTitle, ModalContent } from "./styles";
 import TextField, { Input } from "@material/react-text-field";
 import MaterialIcon from "@material/react-material-icon";
 
@@ -68,7 +68,12 @@ export default function Home() {
                 ))}
             </Container>
             <Map query={query} placeId={placeId} />
-            <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)}></Modal>
+            <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
+                <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+                <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+                <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+                <ModalContent>{restaurantSelected?.opening_hours?.open_now ? 'Aberto agora!' : 'Fechado neste momento...'}</ModalContent>
+            </Modal>
         </Wrapper>
     );
 }
