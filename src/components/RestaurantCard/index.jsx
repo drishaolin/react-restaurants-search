@@ -2,9 +2,9 @@ import { Adress, Restaurant, RestaurantInfo, RestaurantPhoto, Title } from "./st
 import ReactStars from "react-rating-stars-component";
 import restaurantMock from "../../assets/restaurant-mock.jpg";
 
-export default function RestaurantCard({ restaurant }) {
+export default function RestaurantCard({ restaurant, onClick }) {
     return (
-        <Restaurant>
+        <Restaurant onClick={onClick}>
             <RestaurantInfo>
                 <Title>{restaurant.name}</Title>
                 <ReactStars

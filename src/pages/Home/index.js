@@ -5,28 +5,35 @@ import MaterialIcon from "@material/react-material-icon";
 
 import logo from "../../assets/logo.svg";
 
-import { ImageCard, Map, Modal, RestaurantCard } from '../../components';
+import { ImageCard, Map, Modal, RestaurantCard } from "../../components";
 import { useSelector } from "react-redux";
 
 export default function Home() {
     const [inputValue, setInputValue] = useState("");
     const [query, setQuery] = useState(null);
+    const [placeId, setPlaceId] = useState(null);
     const [modalOpened, setModalOpened] = useState(false);
-    const { restaurants } = useSelector(state => state.restaurants);
+    const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
 
     const settings = {
         dots: false,
         infinite: true,
-        speed: 500,
+        autoplay: true,
+        speed: 300,
         slidesToShow: 4,
         slidesToScroll: 4,
         adaptiveHeight: true,
     };
 
     function handleKeyPress(e) {
-        if(e.key === 'Enter') {
-            setQuery (inputValue);
+        if (e.key === "Enter") {
+            setQuery(inputValue);
         }
+    }
+
+    function handleOpenModal(placeId) {
+        setPlaceId(placeId);
+        setModalOpened(true);
     }
 
     return (
@@ -47,13 +54,21 @@ export default function Home() {
                     </TextField>
                     <CarouselTitle>Na sua Área</CarouselTitle>
                     <Carousel {...settings}>
-                    {restaurants.map((restaurant) => <ImageCard restaurant={restaurant}/>)}
+                        {restaurants.map((restaurant) => (
+                            <ImageCard key={restaurant.place_id} restaurant={restaurant} />
+                        ))}
                     </Carousel>
                 </Search>
-                {restaurants.map((restaurant) => <RestaurantCard restaurant={restaurant}/>)}
+                {restaurants.map((restaurant) => (
+                    <RestaurantCard
+                        key={restaurant.place_id}
+                        onClick={() => handleOpenModal(restaurant.place_id)}
+                        restaurant={restaurant}
+                    />
+                ))}
             </Container>
-            <Map query={query} />
-            <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
+            <Map query={query} placeId={placeId} />
+            <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)}></Modal>
         </Wrapper>
     );
 }
