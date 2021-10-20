@@ -17,6 +17,7 @@ export const MapContainer = (props) => {
         }
     }, [query]);
 
+    //efeito chamado ao clicar em um restaurante (para popular modal de acordo com placeId)
     useEffect(() => {
         if (placeId) {
             getRestaurantById(placeId);
@@ -25,6 +26,7 @@ export const MapContainer = (props) => {
 
     function getRestaurantById(placeId) {
         const service = new google.maps.places.PlacesService(map);
+        dispatch(setRestaurant(null)); //limpar as informações ao abrir novo modal
 
         const request = {
             placeId,
@@ -40,6 +42,7 @@ export const MapContainer = (props) => {
 
     function searchByQuery(query) {
         const service = new google.maps.places.PlacesService(map);
+        dispatch(setRestaurants([])); //limpar restaurantes a cada nova busca
 
         const request = {
             location: map.center,
@@ -56,6 +59,7 @@ export const MapContainer = (props) => {
 
     function searchNearby(map, center) {
         const service = new google.maps.places.PlacesService(map);
+        dispatch(setRestaurants([]));
 
         const request = {
             location: center,
