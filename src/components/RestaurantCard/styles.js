@@ -37,6 +37,8 @@ export const Adress = styled.span`
 `;
 
 export const RestaurantPhoto = styled.img`
+    //não mostrar até que a imagem tenha sido carregada, pois mostraremos o Skeleton:
+    display: ${(props) => (props.imageLoaded ? "block" : "none ")};
     width: 100px;
     height: 100px;
     object-fit: cover;

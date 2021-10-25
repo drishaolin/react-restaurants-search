@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Skeleton } from "..";
 import restaurantMock from "../../assets/restaurant-mock.jpg";
 
 const Card = styled.div`
@@ -20,9 +22,24 @@ const Title = styled.span`
 `;
 
 export default function ImageCard({ restaurant }) {
+    const photo = restaurant.photos ? restaurant.photos[0].getUrl() : restaurantMock;
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    useEffect(() => {
+        //instanciamos uma imagem pois card é uma div com background e não possui propriedade onload:
+        const imageLoader = new Image();
+        imageLoader.src = photo;
+        imageLoader.onload = () => setImageLoaded(true);
+    }, [photo]);
     return (
-        <Card photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantMock}>
-            <Title>{restaurant.name}</Title>
-        </Card>
+        <>
+            {imageLoaded ? (
+                <Card photo={photo}>
+                    <Title>{restaurant.name}</Title>
+                </Card>
+            ) : (
+                <Skeleton width="90px" height="90px" />
+            )}
+        </>
     );
 }

@@ -14,7 +14,7 @@ import MaterialIcon from "@material/react-material-icon";
 
 import logo from "../../assets/logo.svg";
 
-import { ImageCard, Loader, Map, Modal, RestaurantCard } from "../../components";
+import { ImageCard, Loader, Map, Modal, RestaurantCard, Skeleton } from "../../components";
 import { useSelector } from "react-redux";
 
 export default function Home() {
@@ -84,14 +84,25 @@ export default function Home() {
             </Container>
             <Map query={query} placeId={placeId} />
             <Modal isOpen={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
-                <ModalTitle>{restaurantSelected?.name}</ModalTitle>
-                <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
-                <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
-                <ModalContent>
-                    {restaurantSelected?.opening_hours?.open_now
-                        ? "Aberto agora!"
-                        : "Fechado neste momento..."}
-                </ModalContent>
+                {restaurantSelected ? (
+                    <>
+                        <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+                        <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+                        <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+                        <ModalContent>
+                            {restaurantSelected?.opening_hours?.open_now
+                                ? "Aberto agora!"
+                                : "Fechado neste momento..."}
+                        </ModalContent>
+                    </>
+                ) : (
+                    <>
+                        <Skeleton width="10px" height="10px" />
+                        <Skeleton width="10px" height="10px" />
+                        <Skeleton width="10px" height="10px" />
+                        <Skeleton width="10px" height="10px" />
+                    </>
+                )}
             </Modal>
         </Wrapper>
     );
