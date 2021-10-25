@@ -15,6 +15,7 @@ export const MapContainer = (props) => {
         if (query) {
             searchByQuery(query);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
     //efeito chamado ao clicar em um restaurante (para popular modal de acordo com placeId)
@@ -22,6 +23,7 @@ export const MapContainer = (props) => {
         if (placeId) {
             getRestaurantById(placeId);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [placeId]);
 
     function getRestaurantById(placeId) {
